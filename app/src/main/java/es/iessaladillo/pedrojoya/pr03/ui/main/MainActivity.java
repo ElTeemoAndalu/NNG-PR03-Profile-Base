@@ -72,11 +72,8 @@ public class MainActivity extends AppCompatActivity {
         imgAvatar.setOnClickListener(v -> changeAvatarImg(database));
 
         txtFields[4].setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 save();
-                return true;
-            }
-            return false;
+                return false;
         });
 
 
@@ -225,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //It checks if all th edittexts pass the requirements and shows errors if thy do not
+    //It checks if all the edittexts pass the requirements and shows errors if thy do not
     private boolean validateAll() {
         CustomErrorChecker.checkNameError(txtFields[0], lblFields[0], errorMsg);
         CustomErrorChecker.checkEmailError(txtFields[1], imgFields[0], lblFields[1], errorMsg);
