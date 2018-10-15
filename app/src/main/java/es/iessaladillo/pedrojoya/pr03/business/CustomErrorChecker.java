@@ -10,10 +10,10 @@ import es.iessaladillo.pedrojoya.pr03.utils.ValidationUtils;
 
 public class CustomErrorChecker {
 
-    private CustomErrorChecker(){
-
+    private CustomErrorChecker() {
     }
 
+    //Separate methods for each EditText to check for errors
     public static void checkNameError(EditText txt, TextView lbl, String errorMsg) {
 
         if (TextUtils.isEmpty(txt.getText().toString())) {
@@ -58,12 +58,12 @@ public class CustomErrorChecker {
     }
 
     private static void setFieldState(EditText txt, ImageView imgTxt, TextView lbl, Boolean enable, String errorMsg) {
-        if(!enable){
+        if (!enable) {
             txt.setError(errorMsg);
-        }else{
+        } else {
             txt.setError(null);
         }
-        if(txt.getId() != R.id.txtName){
+        if (txt.getId() != R.id.txtName) {
             imgTxt.setEnabled(enable);
         }
         lbl.setEnabled(enable);
