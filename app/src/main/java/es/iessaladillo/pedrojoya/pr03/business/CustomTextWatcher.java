@@ -8,41 +8,34 @@ import android.widget.EditText;
 
 import androidx.core.app.ActivityCompat;
 import es.iessaladillo.pedrojoya.pr03.R;
+import es.iessaladillo.pedrojoya.pr03.ui.main.MainActivity;
 import es.iessaladillo.pedrojoya.pr03.utils.ValidationUtils;
 
 public class CustomTextWatcher implements TextWatcher {
 
-    private final View view;
+    private final EditText txt;
     private final Activity activity;
     private final String errorMessage;
 
-    public CustomTextWatcher(View view, Activity activity){
-        this.view = view;
+    public CustomTextWatcher(EditText txt, Activity activity,String errorMessage){
+        this.txt = txt;
         this.activity = activity;
-        errorMessage = null;
+        this.errorMessage = errorMessage;
     }
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         EditText changedTxt;
 
-        if(view.getId() == R.id.txtName || view.getId() == R.id.txtAddress){
+        if(txt.getId() == R.id.txtName || txt.getId() == R.id.txtAddress){
 
-        }else if(view.getId() == R.id.txtName){
-            changedTxt = ActivityCompat.requireViewById(activity, R.id.txtName);
-            if(!ValidationUtils.isValidEmail(s.toString())){
-                changedTxt.setError();
-            }
+        }else if(txt.getId() == R.id.txtEmail){
 
         }
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+    public void afterTextChanged(Editable s) {}
 }

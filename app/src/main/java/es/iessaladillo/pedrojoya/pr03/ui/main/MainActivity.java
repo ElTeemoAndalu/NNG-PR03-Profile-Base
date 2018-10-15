@@ -2,8 +2,6 @@ package es.iessaladillo.pedrojoya.pr03.ui.main;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,13 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import es.iessaladillo.pedrojoya.pr03.R;
 import es.iessaladillo.pedrojoya.pr03.business.CustomTextWatcher;
 import es.iessaladillo.pedrojoya.pr03.data.local.Database;
 import es.iessaladillo.pedrojoya.pr03.data.local.model.Avatar;
-import es.iessaladillo.pedrojoya.pr03.utils.ValidationUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private final int EDITTEXTQUANTITY = 5;
     private EditText txtFields[] = new EditText[EDITTEXTQUANTITY];
     private TextView lblFields[] = new TextView[EDITTEXTQUANTITY];
-
+    private String errorMsg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        errorMsg = getString(R.string.main_invalid_data);
         imgAvatar = ActivityCompat.requireViewById(this, R.id.imgAvatar);
         lblAvatar = ActivityCompat.requireViewById(this, R.id.lblAvatar);
 
@@ -61,18 +58,12 @@ public class MainActivity extends AppCompatActivity {
         imgAvatar.setOnClickListener(v -> changeAvatarImg(database));
 
         for (EditText txt : txtFields) {
-            txt.addTextChangedListener(new CustomTextWatcher(txt,this));
+            txt.addTextChangedListener(new CustomTextWatcher(txt,this, errorMsg));
 
             txt.setOnFocusChangeListener(this::changeLblStyle);
         }
     }
 
-    private void validate(String textWritten, boolean validateAll) {
-        if(!ValidationUtils.isValidPhone(textWritten)){
-
-        }
-
-    }
 
     private void changeLblStyle(View v, boolean hasFocus) {
 
@@ -122,6 +113,18 @@ public class MainActivity extends AppCompatActivity {
     private void save() {
         // TODO
 
+    }
+
+    private void checkNameAddressError(EditText txt,ImageView imgTxt,TextView lbl){
+        if(txt.getText().toString().isEmpty()){
+            txt.setError(errorMsg);
+            imgTxt.setEnabled(false);
+            lbl.setEnabled(false);
+        }else{
+            txt.setError(null);
+            imgTxt.setEnabled(true);
+            lbl.setEnabled(true);
+        }
     }
 
 }

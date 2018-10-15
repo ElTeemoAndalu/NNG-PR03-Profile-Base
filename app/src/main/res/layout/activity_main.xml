@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <!-- TODO
@@ -14,9 +14,10 @@
     <ImageView
         android:id="@+id/imgAvatar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:contentDescription="@string/imgAvatar_description"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,8 +30,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:labelFor="@+id/txtName"
-        android:textStyle="bold"
         android:text="@string/main_lblName"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
@@ -40,14 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:ems="10"
-
         android:hint="@string/main_txtName_hint"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/lblName"
-        app:layout_constraintTop_toBottomOf="@+id/lblName"    >
-        <requestFocus/>
+        app:layout_constraintTop_toBottomOf="@+id/lblName">
 
+        <requestFocus />
     </EditText>
 
     <TextView
@@ -111,7 +111,6 @@
         android:id="@+id/txtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/main_txtEmail_hint"
@@ -137,7 +136,6 @@
         android:id="@+id/txtAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/main_txtAddress_hint"
@@ -159,11 +157,10 @@
         android:id="@+id/txtWeb"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/main_txtWeb"
-        android:inputType="textPersonName|textWebEmailAddress"
+        android:inputType="textUri"
         app:layout_constraintEnd_toStartOf="@+id/imgWeb"
         app:layout_constraintStart_toStartOf="@+id/lblWeb"
         app:layout_constraintTop_toBottomOf="@+id/lblWeb" />
@@ -198,7 +195,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorBlack"
         android:backgroundTint="@color/colorBlack"
-        android:padding="2dp"
+        android:padding="8dp"
         android:text="@string/main_lblAvatar_defaultName"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/imgAvatar"
