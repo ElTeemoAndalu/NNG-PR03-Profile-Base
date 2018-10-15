@@ -2,9 +2,12 @@ package es.iessaladillo.pedrojoya.pr03.ui.main;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,17 +15,21 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import es.iessaladillo.pedrojoya.pr03.R;
-import es.iessaladillo.pedrojoya.pr03.business.CustomTextWatcher;
+import es.iessaladillo.pedrojoya.pr03.business.CustomErrorChecker;
 import es.iessaladillo.pedrojoya.pr03.data.local.Database;
 import es.iessaladillo.pedrojoya.pr03.data.local.model.Avatar;
+import es.iessaladillo.pedrojoya.pr03.utils.SnackBarUtils;
 
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imgAvatar;
     private TextView lblAvatar;
     private final int EDITTEXTQUANTITY = 5;
-    private EditText txtFields[] = new EditText[EDITTEXTQUANTITY];
-    private TextView lblFields[] = new TextView[EDITTEXTQUANTITY];
+    private final int IMAGEQUANTITY = 4;
+    private final EditText[] txtFields = new EditText[EDITTEXTQUANTITY];
+    private final TextView[] lblFields = new TextView[EDITTEXTQUANTITY];
+    private final ImageView[] imgFields = new ImageView[IMAGEQUANTITY];
+
     private String errorMsg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +58,89 @@ public class MainActivity extends AppCompatActivity {
         lblFields[3] = ActivityCompat.requireViewById(this, R.id.lblAddress);
         lblFields[4] = ActivityCompat.requireViewById(this, R.id.lblWeb);
 
+        imgFields[0] = ActivityCompat.requireViewById(this, R.id.imgEmail);
+        imgFields[1] = ActivityCompat.requireViewById(this, R.id.imgPhonenumber);
+        imgFields[2] = ActivityCompat.requireViewById(this, R.id.imgAddress);
+        imgFields[3] = ActivityCompat.requireViewById(this, R.id.imgWeb);
+
 
         Database database = Database.getInstance();
 
         imgAvatar.setTag(database.getDefaultAvatar().getImageResId());
         imgAvatar.setOnClickListener(v -> changeAvatarImg(database));
 
-        for (EditText txt : txtFields) {
-            txt.addTextChangedListener(new CustomTextWatcher(txt,this, errorMsg));
+        txtFields[4].setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                save();
+                return true;
+            }
+            return false;
+        });
 
-            txt.setOnFocusChangeListener(this::changeLblStyle);
+        for (int i = 0; i < txtFields[i].length(); i++) {
+            txtFields[i].setOnFocusChangeListener(this::changeLblStyle);
         }
+
+        txtFields[0].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomErrorChecker.checkNameError(txtFields[0],lblFields[0],errorMsg);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        txtFields[1].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomErrorChecker.checkEmailError(txtFields[1],imgFields[0],lblFields[1],errorMsg);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        txtFields[2].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomErrorChecker.checkPhonenumberError(txtFields[2],imgFields[1],lblFields[2],errorMsg);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        txtFields[3].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomErrorChecker.checkAddressError(txtFields[3],imgFields[2],lblFields[3],errorMsg);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        txtFields[4].addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                CustomErrorChecker.checkWebError(txtFields[4],imgFields[3],lblFields[4],errorMsg);
+            }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+
     }
 
 
     private void changeLblStyle(View v, boolean hasFocus) {
-
         if (hasFocus) {
             for (int i = 0; i < txtFields.length; i++) {
                 if (txtFields[i].getId() == v.getId()) {
@@ -113,18 +187,29 @@ public class MainActivity extends AppCompatActivity {
     private void save() {
         // TODO
 
+        if(validateAll()){
+            SnackBarUtils.showSnackBar(imgAvatar,getString(R.string.main_saved_succesfully));
+        }else{
+            SnackBarUtils.showSnackBar(imgAvatar,getString(R.string.main_error_saving));
+        }
+
+
     }
 
-    private void checkNameAddressError(EditText txt,ImageView imgTxt,TextView lbl){
-        if(txt.getText().toString().isEmpty()){
-            txt.setError(errorMsg);
-            imgTxt.setEnabled(false);
-            lbl.setEnabled(false);
-        }else{
-            txt.setError(null);
-            imgTxt.setEnabled(true);
-            lbl.setEnabled(true);
+    private boolean validateAll() {
+        CustomErrorChecker.checkNameError(txtFields[0],lblFields[0],errorMsg);
+        CustomErrorChecker.checkEmailError(txtFields[1],imgFields[0],lblFields[1],errorMsg);
+        CustomErrorChecker.checkPhonenumberError(txtFields[2],imgFields[1],lblFields[2],errorMsg);
+        CustomErrorChecker.checkAddressError(txtFields[3],imgFields[2],lblFields[3],errorMsg);
+        CustomErrorChecker.checkWebError(txtFields[4],imgFields[3],lblFields[4],errorMsg);
+
+        for (int i = 0; i < lblFields[0].length(); i++) {
+            if(!lblFields[i].isEnabled()){
+                return false;
+            }
         }
+        return true;
     }
+
 
 }

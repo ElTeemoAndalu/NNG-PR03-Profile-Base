@@ -6,7 +6,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class SnackBarUtils {
 
-    public void showSnackBar(View view, String message){
+    public static void showSnackBar(View view, String message){
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
     }
 }

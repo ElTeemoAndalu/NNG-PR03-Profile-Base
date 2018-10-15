@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager;
  * Utility class for SoftKeyboard.
  */
 // DO NOT TOUCH
-public class KeyboardUtils {
+class KeyboardUtils {
 
     private KeyboardUtils() {
     }

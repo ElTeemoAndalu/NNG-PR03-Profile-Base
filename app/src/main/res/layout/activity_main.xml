@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,6 +9,7 @@
     Use android:tint="@color/color_state_selector" in ImageViews corresponding to Icons
     Use android:textColor="@color/color_state_selector" in TextViews acting as labels.
     -->
+
 
     <ImageView
         android:id="@+id/imgAvatar"
@@ -29,6 +29,7 @@
         android:layout_height="15dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:textColor="@color/color_state_selector"
         android:labelFor="@+id/txtName"
         android:text="@string/main_lblName"
         android:textStyle="bold"
@@ -55,9 +56,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/color_state_selector"
         android:text="@string/main_txtEmail"
         app:layout_constraintStart_toStartOf="@+id/txtName"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
+
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:imeOptions="actionNext"
+        android:hint="@string/main_txtEmail_hint"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toStartOf="@+id/imgEmail"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/lblEmail"
+        app:layout_constraintTop_toBottomOf="@+id/lblEmail"
+
+        />
 
     <TextView
         android:id="@+id/lblPhonenumber"
@@ -65,6 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/main_lblPhonenumber"
+        android:textColor="@color/color_state_selector"
         app:layout_constraintStart_toStartOf="@+id/txtPhonenumber"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 
@@ -75,6 +95,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/imgPhonenumber_description"
+        android:tint="@color/color_state_selector"
         app:layout_constraintBottom_toBottomOf="@+id/txtPhonenumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,6 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/imgEmail_description"
+        android:tint="@color/color_state_selector"
         app:layout_constraintBottom_toBottomOf="@+id/txtEmail"
         app:layout_constraintEnd_toStartOf="@+id/txtPhonenumber"
         app:layout_constraintHorizontal_bias="0.5"
@@ -100,6 +122,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:imeOptions="actionNext"
         android:hint="@string/main_txtPhonenumber_hint"
         android:inputType="phone"
         app:layout_constraintBaseline_toBaselineOf="@+id/txtEmail"
@@ -107,27 +130,14 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgEmail" />
 
-    <EditText
-        android:id="@+id/txtEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="@string/main_txtEmail_hint"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toStartOf="@+id/imgEmail"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="@+id/lblEmail"
-        app:layout_constraintTop_toBottomOf="@+id/lblEmail"
 
-        />
 
     <TextView
         android:id="@+id/lblAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/color_state_selector"
         android:text="@string/main_lblAddress"
         app:layout_constraintStart_toStartOf="@+id/txtEmail"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
@@ -149,6 +159,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:textColor="@color/color_state_selector"
         android:text="@string/main_lblWeb"
         app:layout_constraintStart_toStartOf="@+id/txtAddress"
         app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
@@ -172,6 +183,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/imgAddress_description"
+        android:tint="@color/color_state_selector"
         app:layout_constraintBottom_toBottomOf="@+id/txtAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_map_24dp" />
@@ -182,6 +194,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:tint="@color/color_state_selector"
         android:contentDescription="@string/imageWeb_description"
         app:layout_constraintBottom_toBottomOf="@+id/txtWeb"
         app:layout_constraintEnd_toEndOf="parent"
