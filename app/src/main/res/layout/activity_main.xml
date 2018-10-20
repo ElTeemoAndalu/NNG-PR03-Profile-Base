@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- BORRA LOS TODO CUANDO LOS IMPLEMENTES -->
+
     <!-- TODO
     Use android:tint="@color/color_state_selector" in ImageViews corresponding to Icons
     Use android:textColor="@color/color_state_selector" in TextViews acting as labels.
@@ -22,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/cat1" />
 
+    <!-- NO DEJES LITERALES DE TAMAÑO. DEFINE RECURSOS DE DIMENSIÓN -->
     <TextView
         android:id="@+id/lblName"
         android:layout_width="wrap_content"
