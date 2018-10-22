@@ -13,6 +13,10 @@ public class CustomErrorChecker {
     private CustomErrorChecker() {
     }
 
+    // PIÉNSALO BIEN. TODOS ESTOS MÉTODOS SON PRÁCTICAMENTE EL MISMO. LO ÚNICO QUE CAMBIA ES LA
+    // CONDICIÓN QUE DETERMINA SI ES VÁLIDO O NO. ¿POR QUÉ NO PASAS DICHA CONDICIÓN COMO
+    // PARÁMETRO? ENTONCES PODRÍAS HACER UN ÚNICO MÉTODO.
+
     //Separate methods for each EditText to check for errors
     public static void checkNameError(EditText txt, TextView lbl, String errorMsg) {
 

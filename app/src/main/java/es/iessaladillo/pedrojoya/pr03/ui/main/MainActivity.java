@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imgAvatar;
     private TextView lblAvatar;
+    // SEPARA LAS PALABRAS DEL NOMBRE CON _, EDITTEXT_QUANTITY
     private final int EDITTEXTQUANTITY = 5;
     private final int IMAGEQUANTITY = 4;
     private final EditText[] txtFields = new EditText[EDITTEXTQUANTITY];
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        // BORRA EL COMENTARIO DE TODO CUANDO LO HAYAS IMPLEMENTADO.
         // TODO
     }
 
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
         imgAvatar = ActivityCompat.requireViewById(this, R.id.imgAvatar);
         lblAvatar = ActivityCompat.requireViewById(this, R.id.lblAvatar);
 
+        // ENTIENDO POR QUÉ DEFINES LOS ARRAYS Y PARA QUÉ LOS USAS, PERO EL PROBLEMA QUE
+        // TIENE ES QUE DESPUÉS TIENES QUE ACCEDER A LOS ELEMENTOS USANDO UN NÚMERO MÁGICO
+        // COMO ÍNDICE Y ESO NO AYUDA A LA LEGIBILIDAD DEL CÓDIGO.
         txtFields[0] = ActivityCompat.requireViewById(this, R.id.txtName);
         txtFields[1] = ActivityCompat.requireViewById(this, R.id.txtEmail);
         txtFields[2] = ActivityCompat.requireViewById(this, R.id.txtPhonenumber);
@@ -70,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
         //Listeners
         imgAvatar.setOnClickListener(v -> changeAvatarImg(database));
 
+        // QUEDA POCO CLARO A SIMPLE VISTA A QUÉ CAMPO CORRESPONDE.
         txtFields[4].setOnEditorActionListener((v, actionId, event) -> {
                 save();
                 return false;
         });
-
 
         for (EditText txt : txtFields) {
             txt.setOnFocusChangeListener(this::changeLblStyle);
@@ -161,6 +166,8 @@ public class MainActivity extends AppCompatActivity {
 
     //This method changes the font style of the TextViews associated to the EditTexts, from default to bold and vice versa.
     //It depends on its current state.
+    // CREO QUE NO HACE FALTA QUITAR EL ESTILO BOLD AL RESTO DE ELEMENTOS, YA QUE EN DICHOS
+    // ELEMENTOS TAMBIÉN SE EJECUTARÁ ESTE MÉTODO CUANDO PIERDAN EL FOCO.
     private void changeLblStyle(View v, boolean hasFocus) {
         if (hasFocus) {
             for (int i = 0; i < txtFields.length; i++) {
@@ -180,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
     //It changes, including the picture and the name, the current avatar for one randomly selected from the database.
     private void changeAvatarImg(Database database) {
         Avatar idNewAvatar = database.getRandomAvatar();
+        // YO EXTRAERÍA ESTAS TRES LÍNEAS A UN MÉTODO showAvatar(avatar)
         imgAvatar.setTag(idNewAvatar.getImageResId());
         imgAvatar.setImageResource(idNewAvatar.getImageResId());
         lblAvatar.setText(idNewAvatar.getName());
@@ -229,6 +237,9 @@ public class MainActivity extends AppCompatActivity {
         CustomErrorChecker.checkAddressError(txtFields[3], imgFields[2], lblFields[3], errorMsg);
         CustomErrorChecker.checkWebError(txtFields[4], imgFields[3], lblFields[4], errorMsg);
 
+        // ESTÁS CONDICIONANDO LA DETECCIÓN DE QUE EL FORMULARIO SEA VÁLIDO A QUE LOS TextView
+        // ESTÉN HABILITADOS O NO. ¿Y SI EN EL FUTURO SE ELIMINA DICHA FUNCIONALIDAD DE HABILITAR
+        // O DESHABILITAR LOS TextView?, TENDRÍAS QUE TOCAR TAMBIÉN ESTE CÓDIGO.
         for (int i = 0; i < lblFields[0].length(); i++) {
             if (!lblFields[i].isEnabled()) {
                 return false;
